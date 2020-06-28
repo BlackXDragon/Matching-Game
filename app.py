@@ -9,7 +9,9 @@ pygame.init()
 display.set_caption('Matching Game')
 screen = display.set_mode((512, 512))
 matched = image.load('other_assets/matched.png')
-font = pygame.font.SysFont('Times New Roman', 24)
+font1 = pygame.font.SysFont('Times New Roman', 24)
+font2 = pygame.font.Font('fonts/KidsAlphabet.ttf', 42)
+font3 = pygame.font.Font('fonts/dreamwish.ttf', 36)
 
 current_images = []
 
@@ -25,6 +27,42 @@ replay = True
 while replay:
     running = True
     tiles = [Animal(i) for i in range(0, gc.NUM_TILES_TOTAL)]
+
+    txt1 = font2.render('Matching Game', True, (0, 0, 255))
+    txt2 = font3.render('Match the tiles!', True, (0, 0, 255))
+    txt3 = font1.render('Press ENTER to start!', True, (0, 0, 255))
+    txt4 = font1.render('Press ESC to exit!', True, (0, 0, 255))
+    rect = txt1.get_rect()
+    w1, h1 = rect.w, rect.h
+    rect = txt2.get_rect()
+    w2, h2 = rect.w, rect.h
+    rect = txt3.get_rect()
+    w3, h3 = rect.w, rect.h
+    rect = txt4.get_rect()
+    w4, h4 = rect.w, rect.h
+    screen.fill((200, 200, 255))
+    screen.blit(txt1, ((gc.SCREEN_SIZE - w1)/2, (gc.SCREEN_SIZE/2 - h1)/2))
+    screen.blit(txt2, ((gc.SCREEN_SIZE - w2)/2, (gc.SCREEN_SIZE/2 + 2*h1 - h2)/2))
+    screen.blit(txt3, ((gc.SCREEN_SIZE - w3)/2, (gc.SCREEN_SIZE + h3)/2))
+    screen.blit(txt4, ((gc.SCREEN_SIZE - w4)/2, (gc.SCREEN_SIZE*1.5 - h4)/2))
+    display.flip()
+    wait = True
+    while wait:
+        current_events = event.get()
+
+        for e in current_events:
+            if e.type == pygame.QUIT:
+                wait = False
+                replay = False
+                running = False
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                    wait = False
+                    replay = False
+                    running = False
+                if e.key == pygame.K_RETURN:
+                    wait = False
+
     start = time()
 
     while running:
@@ -71,10 +109,10 @@ while replay:
         display.flip()
 
     if won:
-        txt1 = font.render('Great! You won!'.format(end-start), True, (0, 0, 255))
-        txt2 = font.render('You took {:.2f} seconds!'.format(end-start), True, (0, 0, 255))
-        txt3 = font.render('Press ESC to exit!'.format(end-start), True, (0, 0, 255))
-        txt4 = font.render('Press ENTER to play again!'.format(end-start), True, (0, 0, 255))
+        txt1 = font1.render('Great! You won!', True, (0, 0, 255))
+        txt2 = font1.render('You took {:.2f} seconds!'.format(end-start), True, (0, 0, 255))
+        txt3 = font1.render('Press ESC to exit!', True, (0, 0, 255))
+        txt4 = font1.render('Press ENTER to play again!', True, (0, 0, 255))
         w1 = txt1.get_rect().w
         w3 = txt3.get_rect().w
         w4 = txt4.get_rect().w
