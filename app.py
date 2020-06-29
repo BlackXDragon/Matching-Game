@@ -8,10 +8,10 @@ pygame.init()
 
 display.set_caption('Matching Game')
 screen = display.set_mode((512, 512))
-matched = image.load('other_assets/matched.png')
+matched = image.load(gc.OTHER_ASSETS_DIR+'/matched.png')
 font1 = pygame.font.SysFont('Times New Roman', 24)
-font2 = pygame.font.Font('fonts/KidsAlphabet.ttf', 42)
-font3 = pygame.font.Font('fonts/dreamwish.ttf', 36)
+font2 = pygame.font.Font(gc.FONT_DIR+'/KidsAlphabet.ttf', 42)
+font3 = pygame.font.Font(gc.FONT_DIR+'/dreamwish.ttf', 36)
 
 current_images = []
 
